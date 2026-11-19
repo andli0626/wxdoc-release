@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>微文存阅 · 多端发布页 | 把值得读的文章留在本地</title>
+<meta name="description" content="微文存阅（DownWeChat）是面向微信公众号文章的本地归档与阅读工具：一键抓取、图片本地化、全文检索、离线阅读，支持 macOS、Windows、Android、Web 与浏览器扩展。">
+<meta name="theme-color" content="#2563eb">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="微文存阅 · 多端发布页">
+<meta property="og:description" content="多端文章归档与阅读工具：本地优先、图片本地化、全文可搜、一键导出。">
+<meta property="og:image" content="assets/icon-512.png">
+<link rel="icon" href="assets/icon-128.png">
+<link rel="stylesheet" href="styles.css?v=20261119-v1">
+</head>
+<body>
+
+<svg class="svg-sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="5" rx="2"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9"/><path d="M9 13h6"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m4 18 5-5 4 4 3-3 4 4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></symbol>
+  <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7.5 7.5 4.5-4.5 4.5 4.5"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></symbol>
+  <symbol id="i-devices" viewBox="0 0 24 24"><rect x="2.5" y="5" width="14" height="10" rx="2"/><path d="M7 19h6"/><rect x="16" y="10" width="5.5" height="9" rx="1.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.6 3 8 7 9 4-1 7-4.4 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v11"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M5 19h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m14 7 5 5-5 5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 6.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M2 19h20"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4"/><path d="M7 20h10"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9Z"/></symbol>
+  <symbol id="i-mobile" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M10 6h4"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 4a2 2 0 0 1 4 0v1h3a2 2 0 0 1 2 2v3h1a2 2 0 0 1 0 4h-1v3a2 2 0 0 1-2 2h-3v-1a2 2 0 0 0-4 0v1H6a2 2 0 0 1-2-2v-3H3a2 2 0 0 1 0-4h1V7a2 2 0 0 1 2-2h4V4Z"/></symbol>
+  <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7" ry="2.8"/><path d="M5 5.5v6c0 1.6 3.1 2.8 7 2.8s7-1.2 7-2.8v-6"/><path d="M5 11.5v6c0 1.6 3.1 2.8 7 2.8s7-1.2 7-2.8v-6"/></symbol>
+  <symbol id="i-sync" viewBox="0 0 24 24"><path d="M20 7H8a4 4 0 0 0-4 4"/><path d="m16 3 4 4-4 4"/><path d="M4 17h12a4 4 0 0 0 4-4"/><path d="m8 21-4-4 4-4"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v18H6.5A2.5 2.5 0 0 0 4 21V5.5Z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></symbol>
+</svg>
+
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="微文存阅首页">
+      <img src="assets/icon-128.png" alt="" width="34" height="34">
+      <span class="brand-name">微文存阅</span>
+      <span class="brand-version">2026.11</span>
+    </a>
+
+    <nav class="site-nav" aria-label="页面导航">
+      <a href="#features">核心能力</a>
+      <a href="#platforms">多端矩阵</a>
+      <a href="#download">下载</a>
+      <a href="#install">安装</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm" href="#download">
+        <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+        <span>立即下载</span>
+      </a>
+      <label for="nav-toggle" class="menu-button" aria-label="打开导航">
+        <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+      </label>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse"></span>LOCAL-FIRST · 多端归档</p>
+        <h1>把值得反复读的文章，<br><span class="hl">留在自己的设备上</span></h1>
+        <p class="lead">
+          微文存阅（DownWeChat）是一款面向微信公众号文章的本地归档与阅读工具。
+          粘贴一个链接，正文、作者与图片就落到本地；离线可读，全文可搜，
+          需要时再同步到你自己的私有服务。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="#download">
+            <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+            <span>下载全部端</span>
+          </a>
+          <a class="btn btn-ghost btn-lg" href="#features">
+            <span>看看能做什么</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+          </a>
+        </div>
+        <div class="hero-facts" aria-label="产品特点">
+          <span><strong>6</strong> 端覆盖</span>
+          <span class="divider"></span>
+          <span><strong>3</strong> 种导出格式</span>
+          <span class="divider"></span>
+          <span><strong>0</strong> 遥测</span>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="微文存阅文章列表界面">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="window">
+          <div class="window-bar" aria-hidden="true">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="window-url">wxdoc.local / 文库</span>
+          </div>
+          <div class="window-body">
+            <img src="assets/article-list.jpg" alt="微文存阅文章列表：卡片视图、搜索与筛选" width="557" height="1920">
+          </div>
+        </div>
+        <div class="float-card float-a">
+          <svg class="icon" aria-hidden="true"><use href="#i-database"></use></svg>
+          <div><strong>本地 SQLite</strong><span>标题 / 作者 / 正文全文索引</span></div>
+        </div>
+        <div class="float-card float-b">
+          <svg class="icon" aria-hidden="true"><use href="#i-image"></use></svg>
+          <div><strong>图片已本地化</strong><span>断网也能完整阅读</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker">核心能力</p>
+        <h2>采集、归档、阅读，一条链路完成</h2>
+        <p class="section-desc">不用在浏览器、文件夹和笔记软件之间来回搬运。链接进去，文章留下。</p>
+      </header>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-archive"></use></svg></div>
+          <h3>一键归档</h3>
+          <p>粘贴文章链接，或从浏览器扩展点一下，桌面端自动解析正文、作者与发布时间，连同媒体资源一起保存。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-image"></use></svg></div>
+          <h3>图片本地化</h3>
+          <p>正文里的图片与媒体自动下载到本地 <code>storage/</code> 目录，并替换 CDN 引用，平台删稿也不影响阅读。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg></div>
+          <h3>全文检索</h3>
+          <p>标题、作者、正文一起建立索引。输入一个关键词，就能在成百上千篇归档里定位到那一篇。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-export"></use></svg></div>
+          <h3>多格式导出</h3>
+          <p>Markdown、Word（DOCX）、PDF 三种格式。归档不止能读，也能带走、打印或交给别的工具继续处理。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-devices"></use></svg></div>
+          <h3>多端阅读</h3>
+          <p>macOS、Windows、Android、Web PC、H5 与浏览器扩展。书房里归档，通勤路上接着读。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg></div>
+          <h3>本地优先</h3>
+          <p>数据默认只存本机或你的私有服务器，不配置同步也完全可用；没有遥测，不上传行为数据。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band" id="flow">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker">数据流</p>
+        <h2>采集 → 归档 → 同步，三步就够</h2>
+        <p class="section-desc">同步是可选项。只用桌面端，也能拥有一个完整的本地文库。</p>
+      </header>
+      <div class="flow-grid">
+        <article class="flow-card">
+          <span class="flow-num">01</span>
+          <div class="flow-icon"><svg class="icon" aria-hidden="true"><use href="#i-folder"></use></svg></div>
+          <h3>采集</h3>
+          <p>桌面端通过 CDP 连接你已登录的 Chrome / Edge，自动抓取正文、作者与图片、视频资源。</p>
+        </article>
+        <article class="flow-card">
+          <span class="flow-num">02</span>
+          <div class="flow-icon"><svg class="icon" aria-hidden="true"><use href="#i-database"></use></svg></div>
+          <h3>归档</h3>
+          <p>文章写入本地 SQLite，媒体落到 storage 目录，同时建立标题、作者、正文的全文索引。</p>
+        </article>
+        <article class="flow-card">
+          <span class="flow-num">03</span>
+          <div class="flow-icon"><svg class="icon" aria-hidden="true"><use href="#i-sync"></use></svg></div>
+          <h3>同步（可选）</h3>
+          <p>需要多设备时，把本地文章一键上传到私有 Web 服务，安卓、Web 与 H5 共用同一份文库。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="platforms">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker">多端矩阵</p>
+        <h2>一个文库，六个入口</h2>
+        <p class="section-desc">各端定位不同、互为补充。配置私有 Web 服务后，桌面、安卓、Web 与 H5 共享同一份文库。</p>
+      </header>
+
+      <div class="platform-grid">
+        <article class="platform-card">
+          <div class="platform-top">
+            <div class="platform-icon"><svg class="icon" aria-hidden="true"><use href="#i-laptop"></use></svg></div>
+            <span class="platform-tag">桌面端</span>
+          </div>
+          <h3>macOS</h3>
+          <p class="platform-sub">Tauri 2 原生应用 · 通用二进制</p>
+          <ul class="check-list">
+            <li>批量归档与博主采集</li>
+            <li>离线阅读、全文搜索</li>
+            <li>Markdown / DOCX / PDF 导出</li>
+          </ul>
+          <div class="platform-foot"><span>macOS 12+</span><a href="#download">下载 DMG <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></div>
+        </article>
+
+        <article class="platform-card">
+          <div class="platform-top">
+            <div class="platform-icon"><svg class="icon" aria-hidden="true"><use href="#i-monitor"></use></svg></div>
+            <span class="platform-tag">桌面端</span>
+          </div>
+          <h3>Windows</h3>
+          <p class="platform-sub">Tauri 2 原生应用 · x64</p>
+          <ul class="check-list">
+            <li>批量归档与博主采集</li>
+            <li>离线阅读、全文搜索</li>
+            <li>Markdown / DOCX / PDF 导出</li>
+          </ul>
+          <div class="platform-foot"><span>Windows 10+</span><a href="#download">下载安装包 <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></div>
+        </article>
+
+        <article class="platform-card">
+          <div class="platform-top">
+            <div class="platform-icon"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg></div>
+            <span class="platform-tag">移动端</span>
+          </div>
+          <h3>Android</h3>
+          <p class="platform-sub">Kotlin · Jetpack Compose</p>
+          <ul class="check-list">
+            <li>远程抓取任务管理</li>
+            <li>文章列表、标签与收藏</li>
+            <li>离线阅读、字号主题可调</li>
+          </ul>
+          <div class="platform-foot"><span>Android 8.0+</span><a href="#download">下载 APK <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></div>
+        </article>
+
+        <article class="platform-card">
+          <div class="platform-top">
+            <div class="platform-icon"><svg class="icon" aria-hidden="true"><use href="#i-globe"></use></svg></div>
+            <span class="platform-tag">Web</span>
+          </div>
+          <h3>Web PC</h3>
+          <p class="platform-sub">Vue 3 + Element Plus 管理后台</p>
+          <ul class="check-list">
+            <li>文章浏览与数据统计</li>
+            <li>API 文档与使用指南</li>
+            <li>多设备共享访问</li>
+          </ul>
+          <div class="platform-foot"><span>私有部署</span><a href="#download">下载站点包 <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></div>
+        </article>
+
+        <article class="platform-card">
+          <div class="platform-top">
+            <div class="platform-icon"><svg class="icon" aria-hidden="true"><use href="#i-mobile"></use></svg></div>
+            <span class="platform-tag">Web</span>
+          </div>
+          <h3>H5 移动端</h3>
+          <p class="platform-sub">移动端文库与阅读页</p>
+          <ul class="check-list">
+            <li>文库、作者与收藏</li>
+            <li>移动端沉浸阅读</li>
+            <li>随 Web 服务一起部署</li>
+          </ul>
+          <div class="platform-foot"><span>私有部署</span><a href="#download">下载站点包 <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></div>
+        </article>
+
+        <article class="platform-card">
+          <div class="platform-top">
+            <div class="platform-icon"><svg class="icon" aria-hidden="true"><use href="#i-puzzle"></use></svg></div>
+            <span class="platform-tag">扩展</span>
+          </div>
+          <h3>浏览器扩展</h3>
+          <p class="platform-sub">Manifest V3 · Chrome / Edge</p>
+          <ul class="check-list">
+            <li>公众号页面一键归档</li>
+            <li>当前页面 URL 嗅探</li>
+            <li>与桌面端连接状态提示</li>
+          </ul>
+          <div class="platform-foot"><span>Chrome 88+</span><a href="#download">下载扩展包 <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band" id="guide">
+    <div class="wrap guide-grid">
+      <div class="guide-copy">
+        <p class="kicker">内置文档</p>
+        <h2>不用翻外网，答案就在应用里</h2>
+        <p class="guide-desc">Web 端内置使用指南、开发接入与运维部署文档；桌面端、安卓端与 Web 端共享同一套概念和术语，换端不用重新学。</p>
+        <ul class="check-list check-list-lg">
+          <li>从安装、连接到批量归档的完整步骤</li>
+          <li>同步、备份与私有化部署说明</li>
+          <li>常见问题与故障排查</li>
+        </ul>
+        <a class="text-link" href="#download">先把客户端装上 <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+      </div>
+      <figure class="guide-visual">
+        <img src="assets/guide-page.jpg" alt="微文存阅 Web 端内置使用指南界面" width="1592" height="1542">
+        <figcaption>Web 端使用指南 · 产品概览</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="download">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker">下载</p>
+        <h2>选择你的设备，直接开始</h2>
+        <p class="section-desc">所有安装包与页面同源托管，不依赖 GitHub Release 或第三方网盘，国内网络可直接下载。</p>
+      </header>
+
+      <div class="download-primary">
+        <article class="dl-card dl-card-main">
+          <div class="dl-head">
+            <div class="dl-icon"><svg class="icon" aria-hidden="true"><use href="#i-laptop"></use></svg></div>
+            <div>
+              <p class="dl-label">桌面端 · macOS</p>
+              <h3>macOS 通用版</h3>
+            </div>
+            <span class="dl-badge">推荐</span>
+          </div>
+          <p class="dl-desc">一个 DMG 同时支持 Apple Silicon 与 Intel，安装后即可开始归档、检索与导出。</p>
+          <p class="dl-file">wxdoc-desk-2.0.23-macos-universal.dmg</p>
+          <div class="dl-meta"><span>25.3 MB</span><span>macOS 12+</span><span>Universal</span></div>
+          <a class="btn btn-primary btn-block" href="downloads/wxdoc-desk-2.0.23-macos-universal.dmg" download>
+            <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+            <span>下载 DMG</span>
+          </a>
+        </article>
+
+        <article class="dl-card dl-card-main">
+          <div class="dl-head">
+            <div class="dl-icon"><svg class="icon" aria-hidden="true"><use href="#i-monitor"></use></svg></div>
+            <div>
+              <p class="dl-label">桌面端 · Windows</p>
+              <h3>Windows x64</h3>
+            </div>
+          </div>
+          <p class="dl-desc">提供 MSI 与 EXE 两种安装方式，功能与 macOS 版一致，适合办公电脑长期使用。</p>
+          <p class="dl-file">wxdoc-desk-2.0.23-windows-x64.msi / -setup.exe</p>
+          <div class="dl-meta"><span>MSI 12.1 MB</span><span>EXE 8.2 MB</span><span>Windows 10+</span></div>
+          <div class="dl-actions">
+            <a class="btn btn-primary btn-half" href="downloads/wxdoc-desk-2.0.23-windows-x64.msi" download>
+              <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+              <span>下载 MSI</span>
+            </a>
+            <a class="btn btn-secondary btn-half" href="downloads/wxdoc-desk-2.0.23-windows-x64-setup.exe" download>
+              <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+              <span>下载 EXE</span>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="download-grid">
+        <article class="dl-card">
+          <div class="dl-head">
+            <div class="dl-icon"><svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg></div>
+            <div><p class="dl-label">移动端</p><h3>Android APK</h3></div>
+          </div>
+          <p class="dl-file">wxdoc-app-3.1.20-android.apk</p>
+          <div class="dl-meta"><span>44.9 MB</span><span>Android 8.0+</span><span>v3.1.20</span></div>
+          <a class="btn btn-secondary btn-block" href="downloads/wxdoc-app-3.1.20-android.apk" download>
+            <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+            <span>下载 APK</span>
+          </a>
+        </article>
+
+        <article class="dl-card">
+          <div class="dl-head">
+            <div class="dl-icon"><svg class="icon" aria-hidden="true"><use href="#i-globe"></use></svg></div>
+            <div><p class="dl-label">Web</p><h3>Web PC 站点包</h3></div>
+          </div>
+          <p class="dl-file">wxdoc-web-pc.zip</p>
+          <div class="dl-meta"><span>1.9 MB</span><span>Vue 3</span><span>v1.7.0</span></div>
+          <a class="btn btn-secondary btn-block" href="downloads/wxdoc-web-pc.zip" download>
+            <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+            <span>下载 ZIP</span>
+          </a>
+        </article>
+
+        <article class="dl-card">
+          <div class="dl-head">
+            <div class="dl-icon"><svg class="icon" aria-hidden="true"><use href="#i-mobile"></use></svg></div>
+            <div><p class="dl-label">Web</p><h3>H5 站点包</h3></div>
+          </div>
+          <p class="dl-file">wxdoc-web-h5.zip</p>
+          <div class="dl-meta"><span>220 KB</span><span>移动端</span><span>v1.7.0</span></div>
+          <a class="btn btn-secondary btn-block" href="downloads/wxdoc-web-h5.zip" download>
+            <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+            <span>下载 ZIP</span>
+          </a>
+        </article>
+
+        <article class="dl-card">
+          <div class="dl-head">
+            <div class="dl-icon"><svg class="icon" aria-hidden="true"><use href="#i-puzzle"></use></svg></div>
+            <div><p class="dl-label">扩展</p><h3>浏览器扩展</h3></div>
+          </div>
+          <p class="dl-file">wxdoc-web-ext.zip</p>
+          <div class="dl-meta"><span>155 KB</span><span>Chrome / Edge</span><span>v2.1.0</span></div>
+          <a class="btn btn-secondary btn-block" href="downloads/wxdoc-web-ext.zip" download>
+            <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+            <span>下载 ZIP</span>
+          </a>
+        </article>
+      </div>
+
+      <p class="download-note">
+        <svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>
+        安装包为当前内部分发版本，未做公网代码签名；macOS 首次启动请右键选择「打开」。
+      </p>
+    </div>
+  </section>
+
+  <section class="section band" id="install">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker">安装与启动</p>
+        <h2>第一次打开，按这四步来</h2>
+        <p class="section-desc">桌面端与安卓端都不需要注册账号。Web 端与扩展属于可选增强。</p>
+      </header>
+
+      <div class="install-grid">
+        <article class="install-card">
+          <span class="step">01</span>
+          <h3>macOS</h3>
+          <p>打开 DMG，把「微文存阅」拖进「应用程序」。首次启动右键点击图标选择「打开」，绕过未公证提示。</p>
+        </article>
+        <article class="install-card">
+          <span class="step">02</span>
+          <h3>Windows</h3>
+          <p>运行 MSI 或 EXE，按向导完成安装。SmartScreen 提示时选择「更多信息 → 仍要运行」，然后启动应用。</p>
+        </article>
+        <article class="install-card">
+          <span class="step">03</span>
+          <h3>Android</h3>
+          <p>把 APK 传到手机，允许「安装未知应用」后完成安装。首次启动可选择服务地址；只用本地功能可跳过。</p>
+        </article>
+        <article class="install-card">
+          <span class="step">04</span>
+          <h3>Web / 扩展</h3>
+          <p>Web PC 与 H5 解压后用静态服务器托管；扩展解压后，在 <code>chrome://extensions</code> 开启开发者模式并「加载已解压的扩展程序」。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap faq-wrap">
+      <header class="section-head">
+        <p class="kicker">常见问题</p>
+        <h2>你可能想先知道的几件事</h2>
+      </header>
+
+      <div class="faq-list">
+        <details open>
+          <summary>文章数据到底存在哪里？</summary>
+          <p>桌面端默认保存在本机：文章元数据与正文进入本地 SQLite，图片与视频进入保存目录下的 <code>storage/</code>。只有你手动配置并触发同步时，数据才会上传到你自己的 Web 服务。</p>
+        </details>
+        <details>
+          <summary>不安装 Chrome 或 Edge 能用吗？</summary>
+          <p>桌面端的自动采集依赖 CDP 连接本机已登录的 Chrome 或 Edge（88+）。没有浏览器时，仍可阅读已归档文章、搜索与导出，但无法发起新的抓取。</p>
+        </details>
+        <details>
+          <summary>手机和电脑怎么同步？</summary>
+          <p>部署 Web 后端后，在桌面端填写服务地址，把本地文章一键上传。安卓端、Web PC 与 H5 连接同一个服务，就能看到同一份文库。同步是可选功能，不配置也不影响本地使用。</p>
+        </details>
+        <details>
+          <summary>支持导出哪些格式？</summary>
+          <p>桌面端支持 Markdown、Word（DOCX）与 PDF。图片会随导出一起打包或写入文档，方便归档、打印或交给其他工具继续处理。</p>
+        </details>
+        <details>
+          <summary>为什么 macOS 首次打开会被系统拦截？</summary>
+          <p>当前安装包使用 ad-hoc 签名，未做 Apple 公证，因此 Gatekeeper 会提示「无法验证开发者」。在「系统设置 → 隐私与安全性」中选择「仍要打开」，或右键应用图标选择「打开」即可。</p>
+        </details>
+        <details>
+          <summary>卸载应用会删掉我归档的文章吗？</summary>
+          <p>不会。归档目录独立于应用安装目录，卸载客户端不会删除已保存的文章与媒体文件；重新安装后指向原目录即可继续使用。</p>
+        </details>
+        <details>
+          <summary>版本号为什么各端不一样？</summary>
+          <p>各端独立迭代：桌面端当前为 2.0.23，安卓端 3.1.20，Web 前后端 1.7.0，浏览器扩展 2.1.0。发布页统一按「当前可用版本」提供下载，功能以各端说明为准。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <img src="assets/icon-128.png" alt="" width="36" height="36">
+      <div>
+        <strong>微文存阅</strong>
+        <p>让每一篇值得阅读的微信文章，都安全地留在你的设备上。</p>
+      </div>
+    </div>
+    <nav class="footer-nav" aria-label="页脚导航">
+      <a href="#features">核心能力</a>
+      <a href="#platforms">多端矩阵</a>
+      <a href="#download">下载</a>
+      <a href="#install">安装</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 微文存阅 · DownWeChat</span>
+    <span>桌面 2.0.23 · 安卓 3.1.20 · Web 1.7.0 · 扩展 2.1.0</span>
+    <span>本页零外部依赖 · 同源下载 · 无统计埋点</span>
+  </div>
+</footer>
+
+</body>
+</html>
