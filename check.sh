@@ -56,8 +56,10 @@ done < <(grep -oE 'href="downloads/[^"]+"' index.html | sed 's/href="//; s/"$//'
 
 echo
 echo "== 4. 体积检查 =="
-site_size=$(du -sh . | cut -f1)
-echo "整站体积：${site_size}（GitHub Pages 上限 1 GB）"
+# 只统计实际站点文件，排除 .git（Pages 不托管 .git 目录）
+site_bytes=$(find . -path ./.git -prune -o -type f -print0 | xargs -0 wc -c | tail -1 | awk '{print $1}')
+site_mb=$((site_bytes / 1024 / 1024))
+echo "整站体积：${site_mb} MB（不含 .git；GitHub Pages 上限 1 GB）"
 big=$(find downloads -type f -size +100M 2>/dev/null)
 if [ -n "$big" ]; then
   echo "[风险] 以下文件超过 100 MB："
